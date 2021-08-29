@@ -38,7 +38,7 @@ services:
     volumes:
       - ./app/public:/var/www/html/public
     ports: # <Port exposed>:<Port running inside container>
-      - "8080:80"   # http://127.0.0.1:8080
+      - "80:80"   # http://127.0.0.1:8080
     depends_on:
       - symfony
       - bdd

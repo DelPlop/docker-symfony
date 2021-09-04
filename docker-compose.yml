@@ -1,3 +1,5 @@
+version: "3.7"
+
 services:
   bdd:
     container_name: bdd
@@ -27,8 +29,7 @@ services:
     links:
       - bdd
     depends_on:
-      bdd:
-        condition: service_healthy
+      - bdd
 
   nginx:
     container_name: nginx
@@ -39,6 +40,9 @@ services:
       - ./app/public:/var/www/html/public
     ports: # <Port exposed>:<Port running inside container>
       - "80:80"   # http://127.0.0.1:8080
+    links:
+      - bdd
+      - symfony
     depends_on:
       - symfony
       - bdd
@@ -49,8 +53,7 @@ services:
     links:
       - bdd
     depends_on:
-      bdd:
-        condition: service_healthy
+      - bdd
     ports:
       - "8083:80"
     environment:
@@ -59,4 +62,4 @@ services:
       PMA_ARBITRARY: 1
 
 volumes:
-  dbdata:
+  db_data:
